@@ -1,0 +1,29 @@
+{
+  "documents": [
+    {
+      "title": "Introduction to Semantic Search",
+      "source": "https://example.com/semantic-search",
+      "content": "Semantic search is a data searching technique that aims to improve search accuracy by understanding the intent and contextual meaning of the search query, as opposed to traditional keyword matching. Instead of looking for literal matches of the query words, semantic search systems attempt to understand the semantics — the meaning — behind the user's query. This approach leverages natural language processing (NLP) and machine learning techniques, including word embeddings and large language models. Semantic search systems represent both documents and queries as dense vectors in a high-dimensional space, and measure similarity using metrics like cosine similarity or dot product. The key insight is that semantically similar texts will have vectors that are close together in this embedding space, even if they don't share the same words."
+    },
+    {
+      "title": "Vector Databases Explained",
+      "source": "https://example.com/vector-databases",
+      "content": "A vector database is a type of database that stores data as high-dimensional vectors — mathematical representations of features or attributes. Each vector has hundreds or thousands of dimensions, and the similarity between vectors is calculated using distance metrics such as cosine similarity, Euclidean distance, or dot product. Vector databases are optimized for similarity search, making them ideal for applications like semantic search, recommendation systems, image search, and anomaly detection. Popular vector databases and libraries include FAISS (Facebook AI Similarity Search), Pinecone, Weaviate, Qdrant, Milvus, and Chroma. FAISS is a library developed by Meta AI that provides efficient similarity search and clustering of dense vectors. It is widely used for its speed and flexibility in handling large-scale vector datasets."
+    },
+    {
+      "title": "FastAPI Framework Overview",
+      "source": "https://fastapi.tiangolo.com",
+      "content": "FastAPI is a modern, fast (high-performance) web framework for building APIs with Python 3.8+ based on standard Python type hints. It is designed to be easy to use and to provide automatic interactive API documentation. FastAPI is built on top of Starlette for the web parts and Pydantic for the data parts. Key features include: automatic data validation and serialization via Pydantic models, automatic OpenAPI documentation at /docs and /redoc, async support using Python's asyncio, dependency injection system, and OAuth2 and JWT authentication support. FastAPI has become one of the most popular Python web frameworks due to its performance (comparable to NodeJS and Go), developer experience, and robust type safety."
+    },
+    {
+      "title": "Retrieval Augmented Generation (RAG)",
+      "source": "https://example.com/rag",
+      "content": "Retrieval Augmented Generation (RAG) is a technique that combines the power of information retrieval with text generation. In a RAG pipeline, when a user asks a question, the system first retrieves relevant documents or passages from a knowledge base using vector similarity search, and then passes these retrieved documents as additional context to a large language model (LLM) to generate a grounded, factual answer. This approach has several key advantages over pure LLM generation: it reduces hallucinations by grounding the model's responses in real documents, it allows the model to access up-to-date information beyond its training cutoff, and it enables the model to answer questions about domain-specific or proprietary knowledge. The typical RAG pipeline consists of: document ingestion and chunking, embedding generation, vector storage, semantic retrieval, and LLM-based answer synthesis."
+    },
+    {
+      "title": "OpenAI Embeddings API",
+      "source": "https://platform.openai.com/docs/guides/embeddings",
+      "content": "OpenAI's Embeddings API converts text into numerical vector representations that capture semantic meaning. The recommended model is text-embedding-ada-002, which produces 1536-dimensional vectors and supports a maximum input of 8191 tokens. Embeddings can be used for search (finding semantically similar text), clustering (grouping similar documents), recommendations (finding related items), anomaly detection, and classification tasks. To use the API, you send text to the endpoint and receive a vector in return. These vectors can then be stored in a vector database and used for similarity search. The cosine similarity between two embedding vectors measures how semantically similar the two texts are — a value of 1 means identical meaning, while 0 means completely unrelated. OpenAI embeddings are widely used in production RAG systems due to their high quality and ease of use."
+    }
+  ]
+}

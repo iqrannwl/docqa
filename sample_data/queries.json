@@ -1,0 +1,8 @@
+[
+  {"question": "What is semantic search and how does it differ from keyword search?"},
+  {"question": "What is FAISS and what is it used for?"},
+  {"question": "How does Retrieval Augmented Generation work?"},
+  {"question": "What embedding model does OpenAI recommend?"},
+  {"question": "What are the key features of FastAPI?"},
+  {"question": "How many dimensions do OpenAI embeddings have?"}
+]
