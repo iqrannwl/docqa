@@ -2,10 +2,11 @@
 Document QA API — Main Application Entry Point
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
+from google.genai.errors import ClientError
 import os
 
 from app.routers import documents, query, auth
@@ -18,6 +19,18 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+
+@app.exception_handler(ClientError)
+async def genai_exception_handler(request: Request, exc: ClientError):
+    if exc.status_code == 429:
+        return JSONResponse(
+            status_code=429,
+            content={"detail": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits."},
+        )
+    return JSONResponse(
+        status_code=exc.status_code or 500,
+        content={"detail": str(exc)},
+    )
 
 app.add_middleware(
     CORSMiddleware,
