@@ -16,7 +16,7 @@ settings = get_settings()
 
 _lock = threading.Lock()
 _index: faiss.IndexFlatIP | None = None
-_dim: int = 1536  # ada-002 dimension
+_dim: int = 3072  # gemini-embedding-001 dimension
 
 
 def _index_path() -> str:

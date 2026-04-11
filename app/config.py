@@ -8,9 +8,9 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     # Gemini
-    gemini_api_key: str = ""
-    embedding_model: str = "models/text-embedding-004"   # 768-dim, free tier
-    llm_model: str = "gemini-1.5-flash"                  # or gemini-1.5-pro
+    gemini_api_key: str = "AIzaSyD0f3xfDIds1_i1Fp8ogV2mpqS4Aw6rcZs"
+    embedding_model: str = "gemini-embedding-001"  # 768-dim, free tier
+    llm_model: str = "gemini-2.0-flash"                  # or gemini-2.0-flash-lite
     llm_temperature: float = 0.2
     max_tokens: int = 1024
 
@@ -25,8 +25,7 @@ class Settings(BaseSettings):
 
     # Auth
     api_key_header: str = "X-API-Key"
-    api_keys: str = "dev-secret-key"          # comma-separated list
-
+    api_keys: str = "dev-secret-key"
     # Upload limits
     max_upload_size_mb: int = 20
 

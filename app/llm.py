@@ -50,43 +50,40 @@ async def stream_answer(question: str, chunks: list[dict]) -> AsyncIterator[str]
 # ---------- Gemini backend ----------
 
 def _gemini_answer(question: str, chunks: list[dict]) -> str:
-    import google.generativeai as genai
-    genai.configure(api_key=settings.gemini_api_key)
-    model = genai.GenerativeModel(
-        model_name=settings.llm_model,
-        generation_config=genai.GenerationConfig(
+    from google import genai
+    from google.genai import types
+
+    client = genai.Client(api_key=settings.gemini_api_key)
+    context = _build_context(chunks)
+    prompt = _build_prompt(question, context)
+
+    response = client.models.generate_content(
+        model=settings.llm_model,
+        contents=prompt,
+        config=types.GenerateContentConfig(
             temperature=settings.llm_temperature,
             max_output_tokens=settings.max_tokens,
         ),
     )
-    context = _build_context(chunks)
-    prompt = _build_prompt(question, context)
-    response = model.generate_content(prompt)
     return response.text.strip()
 
 
 async def _gemini_stream(question: str, chunks: list[dict]) -> AsyncIterator[str]:
-    import asyncio
-    import google.generativeai as genai
-    genai.configure(api_key=settings.gemini_api_key)
-    model = genai.GenerativeModel(
-        model_name=settings.llm_model,
-        generation_config=genai.GenerationConfig(
-            temperature=settings.llm_temperature,
-            max_output_tokens=settings.max_tokens,
-        ),
-    )
+    from google import genai
+    from google.genai import types
+
+    client = genai.Client(api_key=settings.gemini_api_key)
     context = _build_context(chunks)
     prompt = _build_prompt(question, context)
 
-    # Gemini's streaming is synchronous; run in thread to avoid blocking
-    loop = asyncio.get_event_loop()
-
-    def _stream_sync():
-        return model.generate_content(prompt, stream=True)
-
-    response = await loop.run_in_executor(None, _stream_sync)
-    for chunk in response:
+    async for chunk in client.aio.models.generate_content_stream(
+        model=settings.llm_model,
+        contents=prompt,
+        config=types.GenerateContentConfig(
+            temperature=settings.llm_temperature,
+            max_output_tokens=settings.max_tokens,
+        ),
+    ):
         if chunk.text:
             yield chunk.text
 
