@@ -22,13 +22,13 @@ app = FastAPI(
 
 @app.exception_handler(ClientError)
 async def genai_exception_handler(request: Request, exc: ClientError):
-    if exc.status_code == 429:
+    if exc.code == 429:
         return JSONResponse(
             status_code=429,
             content={"detail": "You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits."},
         )
     return JSONResponse(
-        status_code=exc.status_code or 500,
+        status_code=exc.code or 500,
         content={"detail": str(exc)},
     )
 
